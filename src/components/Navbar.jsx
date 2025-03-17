@@ -48,7 +48,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 const Navbar = () => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [list, setList] = useState({});
+
   const navigate = useNavigate();
 
   const handleSearch = async () => {
@@ -57,7 +57,7 @@ const Navbar = () => {
       const response = await axios.get(
         `http://localhost:3000/find/${searchTerm}`
       );
-      setList(response.data.data);
+
       console.log("search data ", response.data.data);
     } catch (error) {
       console.error("Search failed", error);

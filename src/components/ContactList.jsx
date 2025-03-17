@@ -4,10 +4,11 @@ import { Container, Typography, Box } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
+
 import { useNavigate } from "react-router-dom"; 
 
 const ContactList = () => {
-  const [contacts, setContacts] = useState({});
+  const [contacts, setContacts] = useState([]);
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
@@ -106,7 +107,8 @@ const ContactList = () => {
               {" "}
               <BookmarkBorderIcon />
               <EditIcon onClick={() => navigate(`/edit/${contact.name}`)} />
-              <DeleteIcon onClick={() => deleteContact(contact.name)} /> 
+
+               <DeleteIcon onClick={() => deleteContact(contact.name)} />
             </Box>
           </Box>
         ))
