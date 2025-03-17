@@ -57,8 +57,9 @@ const EditContact = ({ name, onContactUpdated }) => {
       <Box
         component="form"
         onSubmit={handleSubmit}
-        style={{ display: "flex", flexDirection: "column", gap: 2 }}
+        sx={{ display: "flex", flexDirection: "column", gap: 2 }}
       >
+      
         <TextField
           label="Avatar URL"
           name="avatar"
@@ -92,7 +93,7 @@ const EditContact = ({ name, onContactUpdated }) => {
           fullWidth
         />
         <Button type="submit" variant="contained" color="primary">
-          Update Contact
+          update Contact
         </Button>
       </Box>
     </Container>
