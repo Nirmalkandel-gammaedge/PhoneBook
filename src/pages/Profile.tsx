@@ -1,26 +1,33 @@
-import * as React from "react";
-import Card from "@mui/material/Card";
-import CardActions from "@mui/material/CardActions";
-import CardContent from "@mui/material/CardContent";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-import Stack from "@mui/material/Stack";
+import React from "react";
+import { useLocation } from "react-router-dom";
+import { Card, CardActions, CardContent, Button, Typography, Stack } from "@mui/material";
 
-export default function Profile() {
+const Profile = () => {
+  const location = useLocation();
+  const { contact } = location.state || {};
+
+  if (!contact) {
+    return <Typography>No contact data available.</Typography>;
+  }
+
   return (
-    <Card style={{ maxWidth: 500,marginLeft:"400px",border:"1px solid black", display: "flex",flexDirection: "column", alignItems: "center", gap: 2,marginTop:"30px" }}>
+    <Card 
+      style={{ 
+        maxWidth: 500, 
+        margin: "30px auto", 
+        border: "1px solid black", 
+        display: "flex", 
+        flexDirection: "column", 
+        alignItems: "center", 
+        padding: "20px"
+      }}
+    >
       <CardContent style={{ textAlign: "center" }}>
-        <Typography gutterBottom variant="h4" component="div">s
-          Name
+        <Typography gutterBottom variant="h4">
+          {contact.name}
         </Typography>
-        <Typography gutterBottom variant="h6" component="div" color="text.secondary">
-          89r30034234
-        </Typography>
-        <Typography gutterBottom variant="h6" component="div" color="text.secondary">
-          Label
-        </Typography>
-        <Typography variant="body2" color="text.secondary">
-          Avatar
+        <Typography gutterBottom variant="h6" color="text.secondary">
+          {contact.phoneNumber}
         </Typography>
       </CardContent>
       <CardActions>
@@ -38,4 +45,6 @@ export default function Profile() {
       </CardActions>
     </Card>
   );
-}
+};
+
+export default Profile;
