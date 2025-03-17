@@ -1,6 +1,18 @@
 import React, { useState } from "react";
-import { AppBar, Toolbar, Typography, IconButton, InputBase, Button, Box } from "@mui/material";
-import { Search as SearchIcon, FilterList as FilterIcon, Add as AddIcon } from "@mui/icons-material";
+import {
+  Toolbar,
+  Typography,
+  IconButton,
+  InputBase,
+  Button,
+  Box,
+} from "@mui/material";
+import {
+  Search as SearchIcon,
+  FilterList as FilterIcon,
+  Add as AddIcon,
+} from "@mui/icons-material";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { styled } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -9,14 +21,13 @@ const Search = styled("div")(({ theme }) => ({
   position: "relative",
   borderRadius: theme.shape.borderRadius,
   backgroundColor: "#f1f3f4",
-  marginLeft: 0,
+  marginLeft: theme.spacing(2),
   width: "100%",
+  maxWidth: "300px",
   display: "flex",
   alignItems: "center",
-  padding: "4px 10px",
-  [theme.breakpoints.up("sm")]: {
-    width: "250px",
-  },
+  padding: "4px 12px",
+  boxShadow: "0 1px 3px rgba(0, 0, 0, 0.1)",
 }));
 
 const SearchIconWrapper = styled("div")(({ theme }) => ({
@@ -25,48 +36,49 @@ const SearchIconWrapper = styled("div")(({ theme }) => ({
   display: "flex",
   alignItems: "center",
   justifyContent: "center",
-  color: "gray",
+  color: "black",
+  cursor: "pointer",
 }));
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
   marginLeft: theme.spacing(1),
   flex: 1,
-  color: "inherit",
+  color: "black",
 }));
 
-const Navbar = ({ onSearch, onFilter }) => {
+const Navbar = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
 
   const handleSearch = async () => {
+    if (!searchTerm.trim()) return;
     try {
-      const response = await axios.get(`http://localhost:3000/find/${searchTerm}`);
-      onSearch(response.data);
+      const response = await axios.get(
+        `http://localhost:3000/find/${encodeURIComponent(searchTerm)}`
+      );
+      console.log("search data ", response.data.data);
     } catch (error) {
       console.error("Search failed", error);
     }
   };
 
-  const handleFilter = async () => {
-    try {
-      const response = await axios.get(`http://localhost:3000/filter?label=${searchTerm}`);
-      onFilter(response.data);
-    } catch (error) {
-      console.error("Filter failed", error);
-    }
-  };
-
   return (
-    <AppBar position="static" color="default" elevation={1}>
-      <Toolbar style={{ display: "flex", justifyContent: "space-between" ,width:"100%"}}>
-        {/* Logo/Title */}
-        <Typography variant="h5" component="div">
-          📘 Phonebook
-        </Typography>
+    <Box style={{ marginTop: "0px" ,padding:"10px"}}>
+      <Toolbar style={{ display: "flex", justifyContent: "space-between"}}>
+        <Box style={{display:"flex" ,gap:"2px",alignItems:"center"}}>
+          <AccountCircleIcon/>
+          <Typography
+            variant="h6"
+            component="div"
+            style={{ cursor: "pointer" }}
+          >
+          
+            Phonebook
+          </Typography>
+        </Box>
 
-        {/* Search Bar */}
         <Search>
-          <SearchIconWrapper>
+          <SearchIconWrapper onClick={handleSearch}>
             <SearchIcon />
           </SearchIconWrapper>
           <StyledInputBase
@@ -74,26 +86,26 @@ const Navbar = ({ onSearch, onFilter }) => {
             inputProps={{ "aria-label": "search" }}
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && handleSearch()}
           />
         </Search>
 
-        {/* Right Side Buttons */}
         <Box>
-          <IconButton color="inherit" onClick={handleFilter}>
+          <IconButton color="inherit">
             <FilterIcon />
           </IconButton>
           <Button
             variant="contained"
-            color="primary"
+            color="success"
             startIcon={<AddIcon />}
-          
-            onClick={() => navigate("/add-contact")}
+            onClick={() => navigate("/add")}
+            style={{ ml: 2 }}
           >
             Create Contact
           </Button>
         </Box>
       </Toolbar>
-    </AppBar>
+    </Box>
   );
 };
 
