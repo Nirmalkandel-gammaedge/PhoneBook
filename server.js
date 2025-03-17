@@ -43,7 +43,8 @@ app.post("/save", async (req, res) => {
 app.get("/find/:name", async (req, res) => {
   try {
     const { name } = req.params;
-    const data = await contact.findOne({ name: name });
+    const data = await contact.findOne({ name: { $regex: new RegExp("^" + name + "$", "i") } });
+
 
     if (!data) {
       return res.status(404).json({ message: "Contact not found" });
