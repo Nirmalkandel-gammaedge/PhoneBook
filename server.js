@@ -62,6 +62,12 @@ app.put("/update/:name", async (req, res) => {
     const { name } = req.params;
     const { avatar, address, phoneNumber, label } = req.body;
 
+    const updateFields = {};
+    if (avatar !== undefined) updateFields.avatar = avatar;
+    if (address !== undefined) updateFields.address = address;
+    if (phoneNumber !== undefined) updateFields.phoneNumber = phoneNumber;
+    if (label !== undefined) updateFields.label = label;
+
     const updateContact = await contact.findOneAndUpdate(
       { name: new RegExp("^" + name + "$", "i") },
       { avatar, address, phoneNumber, label },
