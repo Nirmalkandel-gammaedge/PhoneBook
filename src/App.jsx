@@ -4,6 +4,7 @@ import React from "react";
 import AddContact from "./pages/AddContact";
 import EditContact from "./pages/EditContact";
 import Body from "./components/Body";
+import Profile from "./pages/Profile";
 
 function App() {
   return (
@@ -13,6 +14,8 @@ function App() {
         <Route path="/add" element={<AddContact />} />
         <Route path="/edit/:name" element={<EditContact />} />
         <Route path="/contacts/:name" element={<AddContact />} />
+        <Route path="/profile" element={<Profile />} />
+
         {/* Fallback Route */}
         <Route path="*" element={<h1>404 Not Found</h1>} />
       </Routes>

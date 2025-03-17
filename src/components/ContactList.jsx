@@ -80,6 +80,7 @@ const ContactList = () => {
         Object.entries(contacts).map(([key, contact]) => (
           <Box
             key={key}
+            onClick={()=>navigate("/profile")}
             style={{
               width: "100%",
               Height: "3%",
