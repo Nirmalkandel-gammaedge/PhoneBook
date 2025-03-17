@@ -8,11 +8,11 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 
 import { useNavigate } from "react-router-dom";
 
-const ContactList = () => {
+const ContactList = ({result}) => {
   const [contacts, setContacts] = useState([]);
   const [error, setError] = useState("");
   const navigate = useNavigate();
-
+console.log("passed Resu;t ;:=",result);
   const fetchContacts = async () => {
     try {
       const response = await axios.get("http://localhost:3000/");

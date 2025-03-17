@@ -16,6 +16,7 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { styled } from "@mui/material/styles";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import ContactList from "./ContactList";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -48,6 +49,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 const Navbar = () => {
   const [searchTerm, setSearchTerm] = useState("");
+  const [searchList ,setSearchList] = useState([]);
 
   const navigate = useNavigate();
 
@@ -59,6 +61,7 @@ const Navbar = () => {
       );
 
       console.log("search data ", response.data.data);
+      setSearchList(response.data.data)
     } catch (error) {
       console.error("Search failed", error);
     }
@@ -113,6 +116,7 @@ const Navbar = () => {
           </Button>
         </Box>
       </Toolbar>
+      <ContactList result={searchList}/>
     </Box>
   );
 };
