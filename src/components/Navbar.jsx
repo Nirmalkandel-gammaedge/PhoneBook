@@ -54,7 +54,7 @@ const Navbar = () => {
     if (!searchTerm.trim()) return;
     try {
       const response = await axios.get(
-        `http://localhost:3000/find/${encodeURIComponent(searchTerm)}`
+        `http://localhost:3000/find/${searchTerm}`
       );
       console.log("search data ", response.data.data);
     } catch (error) {
@@ -62,33 +62,40 @@ const Navbar = () => {
     }
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    handleSearch();
+  };
+
   return (
-    <Box style={{ marginTop: "0px" ,padding:"10px"}}>
-      <Toolbar style={{ display: "flex", justifyContent: "space-between"}}>
-        <Box style={{display:"flex" ,gap:"2px",alignItems:"center"}}>
-          <AccountCircleIcon/>
+    <Box style={{ marginTop: "0px", padding: "10px" }}>
+      <Toolbar style={{ display: "flex", justifyContent: "space-between" }}>
+        
+        <Box style={{ display: "flex", gap: "2px", alignItems: "center" }}>
+          <AccountCircleIcon />
           <Typography
             variant="h6"
             component="div"
             style={{ cursor: "pointer" }}
           >
-          
             Phonebook
           </Typography>
         </Box>
 
-        <Search>
-          <SearchIconWrapper onClick={handleSearch}>
-            <SearchIcon />
-          </SearchIconWrapper>
-          <StyledInputBase
-            placeholder="Search…"
-            inputProps={{ "aria-label": "search" }}
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            onKeyDown={(e) => e.key === "Enter" && handleSearch()}
-          />
-        </Search>
+        <form onSubmit={handleSubmit}>
+          <Search>
+            <SearchIconWrapper onClick={handleSearch}>
+              <SearchIcon />
+            </SearchIconWrapper>
+            <StyledInputBase
+              placeholder="Search…"
+              inputProps={{ "aria-label": "search" }}
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && handleSearch()}
+            />
+          </Search>
+        </form>
 
         <Box>
           <IconButton color="inherit">

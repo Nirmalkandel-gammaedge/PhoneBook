@@ -4,7 +4,7 @@ import { Container, Typography, Box } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom"; 
 
 const ContactList = () => {
   const [contacts, setContacts] = useState({});
@@ -41,7 +41,33 @@ const ContactList = () => {
 
   return (
     <Container style={{ width: "80%", marginTop: "20px" }}>
-      <Typography variant="h6" gutterBottom>
+
+
+<Box
+          
+            style={{
+              width: "100%",
+              marginBottom: 10,
+              padding: 10,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
+            <Box
+              style={{
+                display: "flex",
+                alignItems: "center",
+                width: "60%",
+                justifyContent: "space-between",
+              }}
+            >
+              <Typography variant="h6">Name</Typography>
+              <Typography>phoneNumber</Typography>
+            </Box>
+            
+          </Box>
+      <Typography style={{marginLeft:"5px"}} gutterBottom>
         Contacts ({Object.keys(contacts).length})
       </Typography>
 
@@ -59,7 +85,7 @@ const ContactList = () => {
               marginBottom: 16,
               border: "1px solid #ccc",
               padding: 16,
-              borderRadius: "8px",
+              borderRadius: "12px",
               display: "flex",
               alignItems: "center",
               justifyContent: "space-between",
@@ -79,8 +105,8 @@ const ContactList = () => {
             <Box style={{ display: "flex", gap: "10px" }}>
               {" "}
               <BookmarkBorderIcon />
-              <DeleteIcon onClick={() => deleteContact(contact.name)} />
               <EditIcon onClick={() => navigate(`/edit/${contact.name}`)} />
+              <DeleteIcon onClick={() => deleteContact(contact.name)} /> 
             </Box>
           </Box>
         ))
