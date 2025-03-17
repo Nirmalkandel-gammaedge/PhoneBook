@@ -4,6 +4,7 @@ import { Container, Typography, Box } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 import { useNavigate } from "react-router-dom"; 
 
@@ -80,7 +81,7 @@ const ContactList = () => {
         Object.entries(contacts).map(([key, contact]) => (
           <Box
             key={key}
-            onClick={()=>navigate("/profile")}
+            
             style={{
               width: "100%",
               Height: "3%",
@@ -101,7 +102,8 @@ const ContactList = () => {
                 justifyContent: "space-between",
               }}
             >
-              <Typography variant="h6">{contact.name}</Typography>
+                <Box style={{display:"flex" ,alignItems:"center",justifyContent:"center",gap:"3px"}}><AccountCircleIcon/>
+                <Typography variant="h6" onClick={()=>navigate("/profile")}>{contact.name}</Typography></Box>
               <Typography>{contact.phoneNumber}</Typography>
             </Box>
             <Box style={{ display: "flex", gap: "10px" }}>
